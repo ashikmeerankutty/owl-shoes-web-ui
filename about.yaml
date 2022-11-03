@@ -1,0 +1,25 @@
+## About.yaml to describe the owners of this repository
+## See: https://wiki.hq.twilio.com/x/NCesCQ
+
+## Choose one of the following options:
+
+## Preferred Method: Admiral Role
+# version: 1
+# type: admiral_role
+# admiral_role: zaproxy
+# jira_project_id: PRODSEC
+# other_admiral_roles: [zaproxy-part2, zaproxy-part3]
+
+## Alternative #1: Admiral System-Only
+# version: 1
+# type: admiral_system
+# admiral_system_id: 1NDA2
+# jira_project_id: PRODSEC
+# other_admiral_roles: [zaproxy-part2, zaproxy-part3]
+
+## Alternative #2: Admiral Team
+# version: 1
+# type: admiral
+# team: product-security
+# jira_project_id: PRODSEC
+# other_admiral_roles: [zaproxy-part2, zaproxy-part3]

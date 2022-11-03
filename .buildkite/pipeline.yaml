@@ -1,0 +1,20 @@
+## An example pipeline.yaml file
+
+steps: [] # no op
+
+## Feel free to uncomment and use the snippet below to build and publish a
+## Docker container or create your own with tips from our user guide:
+## https://wiki.hq.twilio.com/pages/viewpage.action?spaceKey=PLAT&title=Buildkite+User+Guide
+
+# steps:
+#   - label: ":docker:" # To Build and publish a docker container
+#     plugins: # For more info about this plugin - https://code.hq.twilio.com/twilio/docker-buildkite-plugin.git
+#       - ssh://git@code.hq.twilio.com/twilio/docker-buildkite-plugin.git#${TWILIO_DOCKER_PLUGIN_VERSION?}:
+#           action: build_and_publish
+#   - wait: ~
+
+#   - label: ":git:" # To create a git tag like release-$RELEASE_VERSION if successful
+#     plugins: # For more info about this plugin - https://code.hq.twilio.com/twilio/bump-version-buildkite-plugin.git
+#       - ssh://git@code.hq.twilio.com/twilio/bump-version-buildkite-plugin.git#${TWILIO_BUMP_VERSION_PLUGIN_VERSION?}:
+#           action: tag
+#     if: build.env("RELEASE_VERSION") != null
