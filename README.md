@@ -1,7 +1,7 @@
-# OWL Retial Web
+# OWL Shoes Retial Web
 
 
-_OWL Retail Web_ is an application that demonstrates a website chat widget built for Flex Conversations. It uses Twilio's Conversations JS SDK, Twilio Paste Design library, the Flex WebChats endpoint, Twilio Functions and React.
+_OWL Shoes Retail Web_ is an application that demonstrates a website chat widget built for Flex Conversations. It uses Twilio's Conversations JS SDK, Twilio Paste Design library, the Flex WebChats endpoint, Twilio Functions and React.
 
 ---
 
