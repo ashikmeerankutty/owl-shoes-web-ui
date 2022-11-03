@@ -1,0 +1,443 @@
+{
+    "description": "Bot flow for creating a Flex webchat task",
+    "states": [
+        {
+            "name": "Trigger",
+            "type": "trigger",
+            "transitions": [
+                {
+                    "next": "loop_1",
+                    "event": "incomingMessage"
+                },
+                {
+                    "event": "incomingCall"
+                },
+                {
+                    "next": "loop_1",
+                    "event": "incomingConversationMessage"
+                },
+                {
+                    "event": "incomingRequest"
+                },
+                {
+                    "event": "incomingParent"
+                }
+            ],
+            "properties": {
+                "offset": {
+                    "x": -1430,
+                    "y": -900
+                }
+            }
+        },
+        {
+            "name": "send_to_flex_agent",
+            "type": "send-to-flex",
+            "transitions": [
+                {
+                    "event": "callComplete"
+                },
+                {
+                    "event": "failedToEnqueue"
+                },
+                {
+                    "event": "callFailure"
+                }
+            ],
+            "properties": {
+                "offset": {
+                    "x": -3580,
+                    "y": 4020
+                },
+                "workflow": "WWbd23c50956ffab9e2493b24ec8d23343",
+                "channel": "TC6ab8399d3e1773fd1925018010ab5a39",
+                "attributes": "{\n\t\"phone\": \"{{widgets.enter_phone_number.inbound.Body}}\",\n\t\"name\": \"{{widgets.enter_full_name.inbound.Body}}\",\n\t\"serviceType\": \"{{widgets.send_service_options.inbound.Body}}\",\n\t\"channelSid\": \"{{trigger.message.ChannelSid}}\",\n\t\"channelType\": \"{{trigger.message.ChannelAttributes.channel_type}}\",\n\t\"agentId\": \"{{trigger.conversation.ChannelAttributes.pre_engagement_data.agentId}}\",\n\t\"skillsNeeded\": \"{{widgets.send_user_options.inbound.Body}}\"\n}"
+            }
+        },
+        {
+            "name": "loop_checker",
+            "type": "split-based-on",
+            "transitions": [
+                {
+                    "next": "loop_1",
+                    "event": "noMatch"
+                },
+                {
+                    "next": "send_thank_you",
+                    "event": "match",
+                    "conditions": [
+                        {
+                            "friendly_name": "looped 3 times",
+                            "arguments": [
+                                "{{flow.variables.count}}"
+                            ],
+                            "type": "equal_to",
+                            "value": "2"
+                        }
+                    ]
+                }
+            ],
+            "properties": {
+                "input": "{{flow.variables.count}}",
+                "offset": {
+                    "x": -630,
+                    "y": -600
+                }
+            }
+        },
+        {
+            "name": "loop_1",
+            "type": "set-variables",
+            "transitions": [
+                {
+                    "next": "enter_full_name",
+                    "event": "next"
+                }
+            ],
+            "properties": {
+                "variables": [
+                    {
+                        "value": "{%- if flow.variables.count -%}\n  {{flow.variables.count | plus: 1}}\n{%- else -%}\n  0\n{%- endif -%}",
+                        "key": "count"
+                    }
+                ],
+                "offset": {
+                    "x": -1940,
+                    "y": -430
+                }
+            }
+        },
+        {
+            "name": "send_thank_you",
+            "type": "send-message",
+            "transitions": [
+                {
+                    "next": "Segment-initiator-no-case",
+                    "event": "sent"
+                },
+                {
+                    "next": "Segment-initiator-no-case",
+                    "event": "failed"
+                }
+            ],
+            "properties": {
+                "offset": {
+                    "x": -2330,
+                    "y": 3180
+                },
+                "service": "{{trigger.conversation.InstanceSid}}",
+                "channel": "{{trigger.conversation.ChannelSid}}",
+                "from": "Concierge",
+                "to": "{{contact.channel.address}}",
+                "body": "Thank you! Please hold on for just a few moments while I connect you with someone who can help."
+            }
+        },
+        {
+            "name": "send_user_options",
+            "type": "send-and-wait-for-reply",
+            "transitions": [
+                {
+                    "next": "choose_user_options",
+                    "event": "incomingMessage"
+                },
+                {
+                    "next": "send_thank_you",
+                    "event": "timeout"
+                },
+                {
+                    "next": "send_thank_you",
+                    "event": "deliveryFailure"
+                }
+            ],
+            "properties": {
+                "offset": {
+                    "x": -3090,
+                    "y": 1830
+                },
+                "service": "{{trigger.conversation.InstanceSid}}",
+                "channel": "{{trigger.conversation.ChannelSid}}",
+                "from": "Concierge",
+                "attributes": "{\n\t\"clickableMessages\": [{\n\t\t\"key\": \"TV\",\n\t\t\"message\": \"TV\"\n\t}, {\n\t\t\"key\": \"Laptop\",\n\t\t\"message\": \"Laptop\"\n\t},{\n\t\t\"key\": \"Others\",\n\t\t\"message\": \"Others\"\n\t}]\n}",
+                "body": "👋 Please select a product you are interested.",
+                "timeout": "1800"
+            }
+        },
+        {
+            "name": "choose_user_options",
+            "type": "split-based-on",
+            "transitions": [
+                {
+                    "next": "send_thank_you",
+                    "event": "noMatch"
+                },
+                {
+                    "next": "send_to_correct_agent",
+                    "event": "match",
+                    "conditions": [
+                        {
+                            "friendly_name": "Yes",
+                            "arguments": [
+                                "{{widgets.send_user_options.inbound.Body}}"
+                            ],
+                            "type": "matches_any_of",
+                            "value": "TV,Laptop"
+                        }
+                    ]
+                },
+                {
+                    "next": "send_thank_you",
+                    "event": "match",
+                    "conditions": [
+                        {
+                            "friendly_name": "No",
+                            "arguments": [
+                                "{{widgets.send_user_options.inbound.Body}}"
+                            ],
+                            "type": "equal_to",
+                            "value": "Others"
+                        }
+                    ]
+                }
+            ],
+            "properties": {
+                "input": "{{widgets.send_user_options.inbound.Body}}",
+                "offset": {
+                    "x": -3540,
+                    "y": 2510
+                }
+            }
+        },
+        {
+            "name": "enter_full_name",
+            "type": "send-and-wait-for-reply",
+            "transitions": [
+                {
+                    "next": "enter_phone_number",
+                    "event": "incomingMessage"
+                },
+                {
+                    "next": "send_thank_you",
+                    "event": "timeout"
+                },
+                {
+                    "next": "send_thank_you",
+                    "event": "deliveryFailure"
+                }
+            ],
+            "properties": {
+                "offset": {
+                    "x": -1930,
+                    "y": 220
+                },
+                "service": "{{trigger.conversation.InstanceSid}}",
+                "channel": "{{trigger.conversation.ChannelSid}}",
+                "from": "Concierge",
+                "body": "Please enter your full name",
+                "timeout": "3600"
+            }
+        },
+        {
+            "name": "enter_phone_number",
+            "type": "send-and-wait-for-reply",
+            "transitions": [
+                {
+                    "next": "enter_email_id",
+                    "event": "incomingMessage"
+                },
+                {
+                    "next": "send_thank_you",
+                    "event": "timeout"
+                },
+                {
+                    "next": "send_thank_you",
+                    "event": "deliveryFailure"
+                }
+            ],
+            "properties": {
+                "offset": {
+                    "x": -2180,
+                    "y": 680
+                },
+                "service": "{{trigger.conversation.InstanceSid}}",
+                "channel": "{{trigger.conversation.ChannelSid}}",
+                "from": "Concierge",
+                "body": "Please enter your phone number",
+                "timeout": "3600"
+            }
+        },
+        {
+            "name": "enter_email_id",
+            "type": "send-and-wait-for-reply",
+            "transitions": [
+                {
+                    "next": "send_user_options",
+                    "event": "incomingMessage"
+                },
+                {
+                    "next": "send_thank_you",
+                    "event": "timeout"
+                },
+                {
+                    "next": "send_thank_you",
+                    "event": "deliveryFailure"
+                }
+            ],
+            "properties": {
+                "offset": {
+                    "x": -2570,
+                    "y": 1170
+                },
+                "service": "{{trigger.conversation.InstanceSid}}",
+                "channel": "{{trigger.conversation.ChannelSid}}",
+                "from": "Concierge",
+                "body": "Please enter your email",
+                "timeout": "3600"
+            }
+        },
+        {
+            "name": "send_to_correct_agent",
+            "type": "send-message",
+            "transitions": [
+                {
+                    "next": "Segment-initiator",
+                    "event": "sent"
+                },
+                {
+                    "next": "send_thank_you",
+                    "event": "failed"
+                }
+            ],
+            "properties": {
+                "offset": {
+                    "x": -3790,
+                    "y": 3100
+                },
+                "service": "{{trigger.conversation.InstanceSid}}",
+                "channel": "{{trigger.conversation.ChannelSid}}",
+                "from": "Concierge",
+                "to": "{{contact.channel.address}}",
+                "body": "Thank you! Please hold on for just a few moments while I connect you to an expert on the selected product who can help."
+            }
+        },
+        {
+            "name": "send_to_any_flex_agent",
+            "type": "send-to-flex",
+            "transitions": [
+                {
+                    "event": "callComplete"
+                },
+                {
+                    "event": "failedToEnqueue"
+                },
+                {
+                    "event": "callFailure"
+                }
+            ],
+            "properties": {
+                "offset": {
+                    "x": -2470,
+                    "y": 3960
+                },
+                "workflow": "WWffa2ec3ecc9ac338fa95894f93ebc657",
+                "channel": "TC6ab8399d3e1773fd1925018010ab5a39",
+                "attributes": "{\n\t\"phone\": \"{{widgets.enter_phone_number.inbound.Body}}\",\n\t\"name\": \"{{widgets.enter_full_name.inbound.Body}}\",\n\t\"serviceType\": \"{{widgets.send_service_options.inbound.Body}}\",\n\t\"channelSid\": \"{{trigger.message.ChannelSid}}\",\n\t\"channelType\": \"{{trigger.message.ChannelAttributes.channel_type}}\",\n\t\"agentId\": \"{{trigger.conversation.ChannelAttributes.pre_engagement_data.agentId}}\"\n}"
+            }
+        },
+        {
+            "name": "Segment-initiator",
+            "type": "run-function",
+            "transitions": [
+                {
+                    "next": "send_to_flex_agent",
+                    "event": "success"
+                },
+                {
+                    "next": "send_thank_you",
+                    "event": "fail"
+                }
+            ],
+            "properties": {
+                "service_sid": "ZSed1d119ff78f7692ea294020fd3c5161",
+                "environment_sid": "ZE64f9068661e4832a337871987b49af7f",
+                "offset": {
+                    "x": -3780,
+                    "y": 3630
+                },
+                "function_sid": "ZH6f248fe29a17d6bb3b914d7aa17026c6",
+                "parameters": [
+                    {
+                        "value": "{{widgets.enter_phone_number.inbound.Body}}",
+                        "key": "phone"
+                    },
+                    {
+                        "value": "{{widgets.enter_full_name.inbound.Body}}",
+                        "key": "name"
+                    },
+                    {
+                        "value": "{{widgets.enter_email_id.inbound.Body}}",
+                        "key": "email"
+                    },
+                    {
+                        "value": "{{trigger.conversation.ChannelAttributes.pre_engagement_data.enquiredDate}}",
+                        "key": "enquiredDate"
+                    },
+                    {
+                        "value": "{{widgets.send_user_options.inbound.Body}}",
+                        "key": "productName"
+                    }
+                ],
+                "url": "https://functions-salesforce-9513-dev.twil.io/segment-identity"
+            }
+        },
+        {
+            "name": "Segment-initiator-no-case",
+            "type": "run-function",
+            "transitions": [
+                {
+                    "next": "send_to_any_flex_agent",
+                    "event": "success"
+                },
+                {
+                    "next": "send_to_any_flex_agent",
+                    "event": "fail"
+                }
+            ],
+            "properties": {
+                "service_sid": "ZSed1d119ff78f7692ea294020fd3c5161",
+                "environment_sid": "ZE64f9068661e4832a337871987b49af7f",
+                "offset": {
+                    "x": -2460,
+                    "y": 3590
+                },
+                "function_sid": "ZH6f248fe29a17d6bb3b914d7aa17026c6",
+                "parameters": [
+                    {
+                        "value": "{{widgets.enter_phone_number.inbound.Body}}",
+                        "key": "phone"
+                    },
+                    {
+                        "value": "{{widgets.enter_full_name.inbound.Body}}",
+                        "key": "name"
+                    },
+                    {
+                        "value": "{{widgets.enter_email_id.inbound.Body}}",
+                        "key": "email"
+                    },
+                    {
+                        "value": "{{trigger.conversation.ChannelAttributes.pre_engagement_data.enquiredDate}}",
+                        "key": "enquiredDate"
+                    },
+                    {
+                        "value": "{{widgets.send_user_options.inbound.Body}}",
+                        "key": "productName"
+                    }
+                ],
+                "url": "https://functions-salesforce-9513-dev.twil.io/segment-identity"
+            }
+        }
+    ],
+    "initial_state": "Trigger",
+    "flags": {
+        "allow_concurrent_calls": true
+    }
+}

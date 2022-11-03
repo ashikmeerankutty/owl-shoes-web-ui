@@ -1,24 +1,118 @@
-This repository was created with the [Buildkite-Github Adoption App: Repo Initializer ](https://code.hq.twilio.com/productivity-eng/github-app-buildkite-adoption.git) to generate the following Buildkite defaults:
+# OWL Retial Web
 
-1. README.md - provides instructions and links for getting started with Buildkite.
-2. Pipeline.yaml - a file to be used with a Buildkite pipeline; contains suggested steps for a docker build and publish but can be customized. 
 
-## Building a Project on Buildkite
-Please check out the [Buildkite User Guide](https://wiki.hq.twilio.com/pages/viewpage.action?spaceKey=PLAT&title=Buildkite+User+Guide) for more complete information and instructions on using Buildkite. 
+_OWL Retail Web_ is an application that demonstrates a website chat widget built for Flex Conversations. It uses Twilio's Conversations JS SDK, Twilio Paste Design library, the Flex WebChats endpoint, Twilio Functions and React.
 
-## How to get started with owl buildkite pellet
+---
 
-Here are the steps to use our [Owl Buildkite](https://wiki.hq.twilio.com/pages/viewpage.action?spaceKey=PLAT&title=Buildkite+User+Guide#BuildkiteUserGuide-Usetheowlbuildkitepellet) command line tool to create your first Buildkite Pipeline. 
+1. [Getting started](#Getting-started)
+   1. [Setup Functions](#Setup-functions)
+   2. [Setup React App](#Setup-react-app)
+   3. [Work locally](#Work-locally)
+2. [Deployment](#Deployment)
 
-If this is your first time using the owl buildkite tool: 
-1. Install the owl buildkite tool: `owl pellet install buildkite git@code.hq.twilio.com:twilio/owl-buildkite.git`
-2. Create a buildkite token and save it in the tool with `owl buildkite login` 
-3. Execute `owl buildkite create ORG/REPO --team <your-team>`
+---
 
-## Opting out of Buildkite
+# Getting Started
 
-If you want to opt out of Buildkite, you can remove the file `.buildkite/pipeline.yaml` from the default branch.  
+## Setup Functions
 
-## Questions/Comments ?
+First we need to setup the server to handle token generation for web chat.
 
-We hope this template has been useful to you and can get you started with Buildkite. If you have questions/feedback on this app, please reach out to us on [#help-buildkite](https://twilio.slack.com/archives/C01KVQZFS2D)
+### 1. Install Dependencies
+
+```
+Node supported version is 14 only.
+npm install
+```
+
+### 2. Populate Your .env File
+
+We provide a handy `bootstrap` script to set up the environment variables, but you can alternatively copy the `.env.sample` file.
+
+```shell
+npm bootstrap \
+accountSid=YOUR_ACCOUNT_SID \
+authToken=YOUR_AUTH_TOKEN \
+apiKey=YOUR_API_KEY_SID \
+apiSecret=YOUR_API_SECRET \
+addressSid=YOUR_ADDRESS_SID \
+conversationsServiceSid=YOUR_CONVERSATIONS_SERVICE_SID \
+sfdcInstanceUrl=YOUR_SFDC_INSTANCE_URL \
+sfdcUserName=YOUR_SFDC_USER_NAME \
+sfdcPassword=YOUR_SFDC_PASSWORD \
+sfdcSecurityToken=YOUR_SFDC_SECURITY_TOKEN \
+```
+You can find your **Account Sid** and **Auth Token** on the main [Twilio Console page](https://console.twilio.com/).
+
+For more info on how to create an **API key** and an **API secret**, please check the [documentation](https://www.twilio.com/docs/glossary/what-is-an-api-key#how-can-i-create-api-keys).
+
+You can find your **Conversations Service Sid** on the [services page](https://console.twilio.com/us1/develop/conversations/manage/services?frameUrl=%2Fconsole%2Fconversations%2Fservices%3Fx-target-region%3Dus1). Make sure to pick the one linked to your Flex Account — usually it is named `Flex Chat Service` and it starts with `IS`
+
+For the Address Sid, Flex Acccount --> Messaging --> Conversations Address --> click on the edit button of your address and the edit screen will contain Address Sid on the column (Address Configuration SID) . Note this Sid starts with `IG`.
+
+## Setup React App
+
+### Checkout React app folder
+
+```
+cd assets-src
+```
+
+### Install dependencies
+
+```
+npm install
+```
+### Update server port
+
+```
+cp .env.sample .env
+```
+
+Update the twilio function server url
+
+## Working Locally
+
+From the root folder
+### 1. Start the Local Backend Server
+
+```shell
+npm run server
+```
+Your server will be served at http://localhost:3001/.
+
+
+### 2. Start the Local React App Server
+
+```shell
+npm start
+```
+
+Your app will be served at http://localhost:3000/.
+## Deployment
+
+The project can be deployed as a Twilio Service
+
+### Deploy to twilio serverless
+
+```
+npm run deploy
+After the flow is created. We need to map the flow to flex task routing. 
+```
+
+### Deploy studio flows and update messaging
+
+```
+npm run deploy-flows
+```
+
+### Update studio workflow and routing based on product user is searched on
+
+```
+Refer the run books to configure the agent routing
+```
+
+# License
+
+MIT © Twilio Inc.

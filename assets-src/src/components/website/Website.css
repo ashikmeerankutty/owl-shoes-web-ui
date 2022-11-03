@@ -1,0 +1,95 @@
+@font-face {
+    font-family: "Connections";
+    src: url("../../assets/fonts/cnx-regular.woff");
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Connections";
+    src: url("../../assets/fonts/cnx-italic.woff");
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Connections";
+    src: url("../../assets/fonts/cnx-bold.woff");
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: "Connections";
+    src: url("../../assets/fonts/cnx-light.woff");
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: "Connections";
+    src: url("../../assets/fonts/cnx-medium.woff");
+    font-weight: 500;
+}
+
+* {
+    font-family: "Connections", Helvetica Neue, Helvetica, Arial, sans-serif !important;
+}
+
+.flip-card {
+    background-color: transparent;
+    perspective: 1000px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+
+}
+
+.flip-card-back {
+    transform: rotateY(180deg);
+}
+
+.contact-card:hover .contact-card-item {
+    text-decoration: underline;
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgb(26 108 97 / 56%);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+    -webkit-animation: spin 1s ease-in-out infinite;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+  }
+  
+  @keyframes spin {
+    to {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+  
+  @-webkit-keyframes spin {
+    to {
+      -webkit-transform: rotate(360deg);
+    }
+  }
