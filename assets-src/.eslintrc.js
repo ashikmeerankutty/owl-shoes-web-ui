@@ -38,7 +38,8 @@ module.exports = {
         "import/no-duplicates": ["error"],
         "spaced-comment": "warn",
         "prefer-named-capture-group": "off",
-        "import/no-unused-modules": "warn"
+        "import/no-unused-modules": "warn",
+        "jsx-a11y/anchor-is-valid": "warn"
     },
     root: true
 };

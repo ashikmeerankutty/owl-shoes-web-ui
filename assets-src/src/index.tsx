@@ -7,7 +7,7 @@ import { sessionDataHandler } from "./sessionDataHandler";
 import { initConfig } from "./store/actions/initActions";
 import { ConfigState } from "./store/definitions";
 import { initLogger } from "./logger";
-import { PageRouter } from "./pageRouter";
+import { PageRouter } from "./Router";
 
 const defaultConfig: ConfigState = {
     serverUrl: "",

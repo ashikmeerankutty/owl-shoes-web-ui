@@ -1,0 +1,24 @@
+#admin-header .logo {
+    font-family: 'Fugaz One', cursive;
+    font-weight: 400;
+    font-size: 26px;
+}
+
+#admin-main {
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-content: center;
+}
+
+#admin-sidebar {
+    margin-top: 56px;
+    width: 100px;
+    height: calc(100vh - 56px);
+    border-right: 1px solid rgba(0, 0, 0, 0.249);
+}
+
+#admin-sidebar .route {
+    color: #000;
+}

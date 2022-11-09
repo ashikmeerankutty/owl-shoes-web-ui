@@ -28,8 +28,8 @@
     font-weight: 500;
 }
 
-* {
-    font-family: "Connections", Helvetica Neue, Helvetica, Arial, sans-serif !important;
+body {
+    font-family: "Connections", Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
 .flip-card {

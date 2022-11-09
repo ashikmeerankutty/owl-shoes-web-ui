@@ -5,7 +5,7 @@ import { ChevronRightIcon } from "@twilio-paste/icons/esm/ChevronRightIcon";
 import { useWebsite } from "./WebsiteProvider/WebsiteProvider";
 import { ContactInfo } from "./ContactInfo";
 import { Alerts } from "./components/Alerts";
-import LogoFull from  "../../assets/logo-full.png";
+import LogoFull from "../../assets/logo-full.png";
 
 const navbarItems = [
     {
