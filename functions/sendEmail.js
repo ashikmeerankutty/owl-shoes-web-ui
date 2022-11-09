@@ -35,6 +35,9 @@ exports.handler = async function (context, event, callback) {
     to: email,
     from: context.SENDGRID_FROM_EMAIL,
     templateId: context.SENDGRID_TEMPLATE_ID,
+    dynamicTemplateData: {
+      promoWebsiteUrl: `https://owl-shoes.in?memberId=${memberId}&phone=${phone}&email=${email}`
+    }
   };
 
   try {
