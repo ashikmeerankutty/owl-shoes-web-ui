@@ -13,6 +13,7 @@
     "assign-agents": "node scripts/assign-agents.js"
   },
   "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
     "@twilio/runtime-handler": "1.2.3",
     "axios": "^0.27.2",
     "concurrently": "^7.2.2",
