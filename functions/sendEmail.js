@@ -1,5 +1,6 @@
 const sgMail = require("@sendgrid/mail");
 const Analytics = require("analytics-node");
+const jwt = require("jsonwebtoken");
 
 const track = (analytics, params) => {
   return new Promise((resolve, reject) => {
@@ -31,13 +32,18 @@ exports.handler = async function (context, event, callback) {
 
   const memberId = `OWS${phone.slice(-4)}`;
 
+  const token = jwt.sign(
+    { sub: memberId, phone, email, iat: new Date().getTime() / 1000 },
+    context.JWT_SECRET
+  );
+
   const msg = {
     to: email,
     from: context.SENDGRID_FROM_EMAIL,
     templateId: context.SENDGRID_TEMPLATE_ID,
     dynamicTemplateData: {
-      promoWebsiteUrl: `${context.WEBSITE_URL}?memberId=${memberId}&phone=${phone}&email=${email}`
-    }
+      promoWebsiteUrl: `${context.WEBSITE_URL}?token=${token}`,
+    },
   };
 
   try {
@@ -51,7 +57,7 @@ exports.handler = async function (context, event, callback) {
       },
     });
     return callback(null, sendResponse({ status: "success" }));
-  } catch(e) {
+  } catch (e) {
     return callback(null, sendResponse({ status: "failed", e }, 400));
   }
 };
