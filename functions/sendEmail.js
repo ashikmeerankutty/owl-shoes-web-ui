@@ -1,4 +1,17 @@
 const sgMail = require("@sendgrid/mail");
+const Analytics = require("analytics-node");
+
+const track = (analytics, params) => {
+  return new Promise((resolve, reject) => {
+    analytics.track(params, (err, res) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(res);
+      }
+    });
+  });
+};
 
 const sendResponse = (data, status = 200) => {
   const response = new Twilio.Response();
@@ -10,10 +23,13 @@ const sendResponse = (data, status = 200) => {
   return response;
 };
 
-exports.handler = function (context, event, callback) {
+exports.handler = async function (context, event, callback) {
   sgMail.setApiKey(context.SENDGRID_API_KEY);
+  const analytics = new Analytics(context.SEGMENT_WRITE_KEY);
 
-  const { email } = event;
+  const { email, phone } = event;
+
+  const memberId = `OWS${phone.slice(-4)}`;
 
   const msg = {
     to: email,
@@ -21,16 +37,18 @@ exports.handler = function (context, event, callback) {
     templateId: context.SENDGRID_TEMPLATE_ID,
   };
 
-  sgMail.send(msg).then(
-    () => {
-      return callback(null, sendResponse({ status: "success" }));
-    },
-    (error) => {
-      console.error(error);
-      if (error.response) {
-        console.error(error.response.body);
-      }
-      return callback(null, sendResponse({ status: "failed", error }, 400));
-    }
-  );
+  try {
+    await sgMail.send(msg);
+    await track(analytics, {
+      userId: memberId,
+      phone,
+      event: "Promotional Email Sent",
+      properties: {
+        emailSendAt: new Date(),
+      },
+    });
+    return callback(null, sendResponse({ status: "success" }));
+  } catch(e) {
+    return callback(null, sendResponse({ status: "failed", e }, 400));
+  }
 };

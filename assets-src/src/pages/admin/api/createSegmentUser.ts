@@ -1,9 +1,9 @@
 import { contactBackend } from "../../../sessionDataHandler";
 import { EmailData } from "./types";
 
-export const sendEmail = async (email: string, phone: string) => {
+export const createSegmentUser = async (email: string, phone: string) => {
     try {
-        return await contactBackend<EmailData>("/sendEmail", {
+        return await contactBackend<EmailData>("/createSegmentUser", {
             email,
             phone
         });

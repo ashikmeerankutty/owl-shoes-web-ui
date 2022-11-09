@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { createSegmentUser } from "../api/createSegmentUser";
 import { sendEmail } from "../api/sendEmail";
 
 enum Status {
@@ -24,7 +25,8 @@ export const useInvite = (): InviteResponse => {
     const sendPromotionalEmail = async () => {
         setStatus(Status.SENDING_EMAIL);
         try {
-            await sendEmail(email);
+            await createSegmentUser(email, phone);
+            await sendEmail(email, phone);
         } catch {
         } finally {
             setStatus(Status.IDLE);
