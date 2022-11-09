@@ -17,13 +17,12 @@ exports.handler = function (context, event, callback) {
 
   const msg = {
     to: email,
-    from: "promotions@em3098.enterprise-twilio.com", // Use the email address or domain you verified above
-    templateId: "d-aa7f9e6e9df847a5bbb721b6aff41372",
+    from: context.SENDGRID_FROM_EMAIL,
+    templateId: context.SENDGRID_TEMPLATE_ID,
   };
 
   sgMail.send(msg).then(
     () => {
-      console.log("message send");
       return callback(null, sendResponse({ status: "success" }));
     },
     (error) => {
