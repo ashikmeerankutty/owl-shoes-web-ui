@@ -42,6 +42,9 @@ sfdcInstanceUrl=YOUR_SFDC_INSTANCE_URL \
 sfdcUserName=YOUR_SFDC_USER_NAME \
 sfdcPassword=YOUR_SFDC_PASSWORD \
 sfdcSecurityToken=YOUR_SFDC_SECURITY_TOKEN \
+sendgridApiKey=YOUR_SENDGRID_API_KEY \
+sendgridFromEmail=YOUR_SENDGRID_FROM_EMAIL \
+sendgridTemplateId=YOUR_SENDGRID_TEMPLATE_ID \
 ```
 You can find your **Account Sid** and **Auth Token** on the main [Twilio Console page](https://console.twilio.com/).
 
