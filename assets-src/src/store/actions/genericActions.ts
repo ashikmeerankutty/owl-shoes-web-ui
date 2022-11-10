@@ -14,7 +14,7 @@ import {
     ACTION_UPDATE_PRE_ENGAGEMENT_DATA,
     ACTION_UPDATE_SCHEDULE_MODAL
 } from "./actionTypes";
-import { MESSAGES_LOAD_COUNT } from "../../constants";
+import { MESSAGES_LOAD_COUNT } from "../../utils/constants";
 
 export function changeEngagementPhase({ phase }: { phase: EngagementPhase }) {
     return {

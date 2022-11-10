@@ -15,8 +15,7 @@ import log from "loglevel";
 import { useUID } from "@twilio-paste/core/dist/uid-library";
 
 import { AppState } from "../../../../store/definitions";
-import { useWebsite } from "../../../website/WebsiteProvider/WebsiteProvider";
-import { VideoCallStarting } from "../../../VideoCallStarting";
+import { VideoCallStarting } from "../../../webchat/VideoCallStarting";
 
 interface JoinMeetingProps {
     roomName: string;
@@ -28,7 +27,6 @@ export const JoinMeeting: FC<JoinMeetingProps> = ({ roomName, token, clientIniti
         conversation: state.chat.conversation
     }));
     const [startCall, setStartCall] = useState(false);
-    const { userData } = useWebsite();
 
     const sendMessage = async (messageText: string) => {
         if (!conversation) {
@@ -63,7 +61,7 @@ export const JoinMeeting: FC<JoinMeetingProps> = ({ roomName, token, clientIniti
                 <Modal ariaLabelledby={modalHeadingID} isOpen={true} onDismiss={onReject} size="default">
                     <ModalHeader>
                         <ModalHeading as="h3" id={modalHeadingID}>
-                            {userData?.Name} has started a video call.
+                            Agent has started a video call.
                         </ModalHeading>
                     </ModalHeader>
                     <ModalBody>

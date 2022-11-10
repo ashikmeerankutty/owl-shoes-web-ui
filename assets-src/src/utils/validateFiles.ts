@@ -2,9 +2,9 @@ import { extension as mimeToExtension } from "mime-types";
 import { Dispatch } from "redux";
 
 import { addNotification } from "../store/actions/genericActions";
-import { notifications } from "../notifications";
+import { notifications } from "./notifications";
 import { roundFileSizeInMB } from "./roundFileSizeInMB";
-import { FileAttachmentConfig } from "../definitions";
+import { FileAttachmentConfig } from "./definitions";
 
 /*
  * Validates all provided files and shows an error notification for every invalid file.

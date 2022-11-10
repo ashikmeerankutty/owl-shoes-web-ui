@@ -42,6 +42,7 @@ exports.handler = async function (context, event, callback) {
       "Last Name": lastName,
       accountType: "A-list",
       userId: memberId,
+      user_id: memberId,
       createdAt: new Date(),
       mobileno: phone,
       phoneNumber: phone,

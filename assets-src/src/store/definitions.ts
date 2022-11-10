@@ -2,7 +2,7 @@ import { Client, Conversation, Participant, Message, User } from "@twilio/conver
 import { GenericThemeShape } from "@twilio-paste/theme";
 import { AlertVariants } from "@twilio-paste/core/alert";
 
-import { FileAttachmentConfig } from "../definitions";
+import { FileAttachmentConfig } from "../utils/definitions";
 
 export type ClickableMessage = {
     key: string;

@@ -14,7 +14,6 @@ import { useSelector } from "react-redux";
 import { RemoteParticipant } from "twilio-video";
 
 import { AppState } from "../../../../store/definitions";
-import { useWebsite } from "../../../website/WebsiteProvider/WebsiteProvider";
 import { useParticipants } from "../../hooks/useParticipants";
 import { Participant } from "../Participant/Participant";
 import { useVideo } from "../VideoProvider/VideoProvider";
@@ -22,7 +21,6 @@ import { useVideo } from "../VideoProvider/VideoProvider";
 export const Participants: FC = () => {
     const participants = useParticipants();
     const { room } = useVideo();
-    const { userData } = useWebsite();
 
     const { conversation } = useSelector((state: AppState) => ({
         conversation: state.chat.conversation
@@ -55,7 +53,7 @@ export const Participants: FC = () => {
         >
             <ModalHeader>
                 <ModalHeading as="h3" id={modalHeadingID}>
-                    Video call with {userData?.Name}
+                    Video call with Agent
                 </ModalHeading>
             </ModalHeader>
             <ModalBody>
