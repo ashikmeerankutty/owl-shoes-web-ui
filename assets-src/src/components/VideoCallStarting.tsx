@@ -40,7 +40,6 @@ export const VideoCallStarting: FC<VideoCallStartingProps> = ({
     const { connect: connectVideo, isConnecting } = useVideo();
 
     const handleJoin = async () => {
-        console.log(roomName, token);
         if (!roomName || !token) {
             return;
         }

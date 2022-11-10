@@ -7,7 +7,8 @@ import { sessionDataHandler } from "./sessionDataHandler";
 import { initConfig } from "./store/actions/initActions";
 import { ConfigState } from "./store/definitions";
 import { initLogger } from "./logger";
-import { PageRouter } from "./pageRouter";
+import { PageRouter } from "./Router";
+import { AnalyticsProvider } from "./common/AnalyticsProvider";
 
 const defaultConfig: ConfigState = {
     serverUrl: "",
@@ -22,7 +23,7 @@ const defaultConfig: ConfigState = {
                 colorBackgroundNeutralWeakest: "#F4F4F4",
                 colorBackgroundBrandHighlightWeakest: "#C4C4C4",
                 colorBackgroundSuccessLightest: "#D1FAE0",
-                colorBackgroundUnavailable: "#E1E3EA",
+                colorBackgroundUnavailable: "#E1E3EA"
             },
             textColors: {
                 colorTextBrandHighlight: "#0F5156",
@@ -33,7 +34,7 @@ const defaultConfig: ConfigState = {
                 colorTextWeaker: "#696F8C"
             },
             borderColors: {
-                colorBorderPrimary: "#0F5156",
+                colorBorderPrimary: "#0F5156"
             }
         }
     },
@@ -53,7 +54,9 @@ const initWebchat = async (config: ConfigState) => {
 
     render(
         <Provider store={store}>
-            <PageRouter />
+            <AnalyticsProvider>
+                <PageRouter />
+            </AnalyticsProvider>
         </Provider>,
         rootElement
     );

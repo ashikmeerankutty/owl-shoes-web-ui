@@ -1,4 +1,4 @@
-import { Anchor, Box, Column, Grid, Text } from "@twilio-paste/core";
+import { Box, Column, Grid, Text } from "@twilio-paste/core";
 import { FC } from "react";
 
 import helpLoan from "../../assets/graphic-benefits-hln.svg";

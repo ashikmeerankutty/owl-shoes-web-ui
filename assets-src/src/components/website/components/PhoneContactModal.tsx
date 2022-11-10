@@ -16,7 +16,6 @@ import { FC } from "react";
 import { useSelector } from "react-redux";
 
 import { AppState } from "../../../store/definitions";
-import { useWebsite } from "../WebsiteProvider/WebsiteProvider";
 
 interface PhoneContactModalProps {
     onDismiss: () => void;
@@ -25,7 +24,6 @@ interface PhoneContactModalProps {
 export const PhoneContactModal: FC<PhoneContactModalProps> = ({ onDismiss }) => {
     const { isOpen } = useSelector((state: AppState) => ({ isOpen: state.contactModal.isPhoneModalOpen }));
     const modalHeadingID = useUID();
-    const { userData } = useWebsite();
 
     return (
         <div>
@@ -40,7 +38,8 @@ export const PhoneContactModal: FC<PhoneContactModalProps> = ({ onDismiss }) => 
                         Call sales department at <strong>601-283-6846</strong>.
                     </Text>
                     <Text as="p">
-                        <strong> or </strong> If you would like us to call you back, please submit your name and phone number below.
+                        <strong> or </strong> If you would like us to call you back, please submit your name and phone
+                        number below.
                     </Text>
                     <Box marginTop="space50">
                         <Label htmlFor="name">Name</Label>

@@ -22,8 +22,8 @@ export const Calculators: FC = () => {
                         <Box marginTop="space60">
                             <Text fontSize="fontSize60" lineHeight="lineHeight50" color="colorTextBrandInverse" as="p">
                                 Apply today and see if you qualify for Cloud City Bank’s smart save program. Terms and
-                                conditions apply. Apply today and see if you qualify for Cloud City Bank’s smart save program.
-                                Terms and conditions apply.
+                                conditions apply. Apply today and see if you qualify for Cloud City Bank’s smart save
+                                program. Terms and conditions apply.
                             </Text>
                         </Box>
                     </Box>

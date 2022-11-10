@@ -3,7 +3,7 @@ export interface UserData {
     Title: string;
     Phone: string;
     Address: {
-        street: string
+        street: string;
     };
     FullPhotoUrl: string;
     AboutMe: string;

@@ -9,11 +9,8 @@ import { ChevronRightIcon } from "@twilio-paste/icons/esm/ChevronRightIcon";
 import { closeStyles, containerStyles, infoStyles, titleStyles } from "./styles/Header.styles";
 import { changeEngagementPhase, changeExpandedStatus } from "../store/actions/genericActions";
 import { AppState, EngagementPhase } from "../store/definitions";
-import { VideoIcon } from "./icons/VideoIcon";
-import { useWebsite } from "./website/WebsiteProvider/WebsiteProvider";
 
 export const Header = ({ customTitle }: { customTitle?: string }) => {
-    const { userData } = useWebsite();
     const dispatch = useDispatch();
     const { conversation } = useSelector((state: AppState) => ({
         conversation: state.chat.conversation
@@ -24,23 +21,6 @@ export const Header = ({ customTitle }: { customTitle?: string }) => {
             return;
         }
         dispatch(changeEngagementPhase({ phase: EngagementPhase.EndMessage }));
-    };
-
-    const sendVideoCallInvite = async () => {
-        if (!conversation) {
-            log.error("Failed sending invite no conversation found");
-            return;
-        }
-        let preparedMessage = conversation.prepareMessage();
-        preparedMessage = preparedMessage
-            .setBody(`Call started, Waiting for ${userData?.Name} to accept call.`)
-            .setAttributes({
-                videoCallSettings: {
-                    init: true
-                },
-                isInfoMessage: true
-            });
-        await preparedMessage.build().send();
     };
 
     return (

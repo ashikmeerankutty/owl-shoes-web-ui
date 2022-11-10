@@ -1,13 +1,4 @@
-import {
-    Box,
-    DataGrid,
-    DataGridBody,
-    DataGridCell,
-    DataGridHead,
-    DataGridHeader,
-    DataGridRow,
-    Text
-} from "@twilio-paste/core";
+import { Box, DataGrid, DataGridBody, DataGridHead, DataGridHeader, DataGridRow, Text } from "@twilio-paste/core";
 import { useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 

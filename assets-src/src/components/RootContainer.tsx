@@ -11,6 +11,7 @@ import { VideoProvider } from "./video/components/VideoProvider/VideoProvider";
 import { VideoChatWidget } from "./video/components/VideoChatWidget/VideoChatWidget";
 import { WebsiteProvider } from "./website/WebsiteProvider/WebsiteProvider";
 import { LoadingPhase } from "./LoadingPhase";
+import { usePageTracking } from "./hooks/usePageTracking";
 
 const getPhaseComponent = (phase: EngagementPhase) => {
     switch (phase) {
@@ -30,6 +31,9 @@ export function RootContainer() {
         currentPhase: session.currentPhase,
         expanded: session.expanded
     }));
+
+    // Analytics
+    usePageTracking();
 
     return (
         <AppStateProvider>

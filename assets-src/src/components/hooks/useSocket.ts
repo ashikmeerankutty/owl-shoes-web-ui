@@ -29,7 +29,6 @@ export const useSocket = () => {
 
     useEffect(() => {
         socket.on("connect", () => {
-            console.log("connected to websocket server");
             setIsConnected(true);
         });
 

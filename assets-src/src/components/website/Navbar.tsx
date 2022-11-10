@@ -37,25 +37,6 @@ const navbarItems = [
 ];
 
 export const Navbar: FC = () => {
-    const activeSection = useScrollSpy({
-        activeSectionDefault: "home",
-        sectionElements: Array.from(document.getElementsByTagName("section")),
-        offsetPx: -112
-    });
-
-    const scrollToView = (id: string) => {
-        const element = document.getElementById(id);
-        if (!element) return;
-        const headerOffset = 100;
-        const elementPosition = element.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-        window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth"
-        });
-    };
-
     return (
         <Box
             style={{ boxShadow: "2px 2px 6px rgb(0 0 0 / 15%)" }}
