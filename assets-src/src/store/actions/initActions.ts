@@ -6,10 +6,10 @@ import { initParticipantsListener } from "./listeners/participantsListener";
 import { initConversationListener } from "./listeners/conversationListener";
 import { ConfigState, EngagementPhase } from "../definitions";
 import { initClientListeners } from "./listeners/clientListener";
-import { notifications } from "../../notifications";
+import { notifications } from "../../utils/notifications";
 import { ACTION_START_SESSION, ACTION_LOAD_CONFIG } from "./actionTypes";
 import { addNotification, changeEngagementPhase } from "./genericActions";
-import { MESSAGES_LOAD_COUNT } from "../../constants";
+import { MESSAGES_LOAD_COUNT } from "../../utils/constants";
 
 export function initConfig(config: ConfigState) {
     return {

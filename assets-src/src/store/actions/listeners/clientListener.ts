@@ -2,8 +2,8 @@ import { Client } from "@twilio/conversations";
 import { Dispatch } from "redux";
 import log from "loglevel";
 
-import { sessionDataHandler } from "../../../sessionDataHandler";
-import { notifications } from "../../../notifications";
+import { sessionDataHandler } from "../../../utils/sessionDataHandler";
+import { notifications } from "../../../utils/notifications";
 import { addNotification, removeNotification } from "../genericActions";
 import { ACTION_UPDATE_SESSION_DATA } from "../actionTypes";
 

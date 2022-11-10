@@ -3,10 +3,9 @@ import { render } from "react-dom";
 import { Provider } from "react-redux";
 
 import { store } from "./store/store";
-import { sessionDataHandler } from "./sessionDataHandler";
+import { sessionDataHandler } from "./utils/sessionDataHandler";
 import { initConfig } from "./store/actions/initActions";
 import { ConfigState } from "./store/definitions";
-import { initLogger } from "./logger";
 import { PageRouter } from "./Router";
 import { AnalyticsProvider } from "./common/AnalyticsProvider";
 
@@ -49,7 +48,6 @@ const initWebchat = async (config: ConfigState) => {
     const mergedConfig = merge({}, defaultConfig, config);
     sessionDataHandler.setEndpoint(mergedConfig.serverUrl);
     store.dispatch(initConfig(mergedConfig));
-    initLogger();
     const rootElement = document.getElementById("root");
 
     render(
@@ -62,17 +60,4 @@ const initWebchat = async (config: ConfigState) => {
     );
 };
 
-declare global {
-    interface Window {
-        Twilio: {
-            initWebchat: (config: ConfigState) => void;
-        };
-    }
-}
-
-// Expose `initWebchat` function to window object
-Object.assign(window, {
-    Twilio: {
-        initWebchat
-    }
-});
+initWebchat({ serverUrl: process.env.REACT_APP_SERVER_URL });

@@ -1,4 +1,4 @@
-import { contactBackend } from "../../../sessionDataHandler";
+import { contactBackend } from "../../../utils/sessionDataHandler";
 import { EmailData } from "./types";
 
 export const createSegmentUser = async (email: string, phone: string) => {
