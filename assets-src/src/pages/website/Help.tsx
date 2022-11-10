@@ -3,7 +3,7 @@ import { FC } from "react";
 
 import helpLoan from "../../assets/graphic-benefits-hln.svg";
 import helpMobile from "../../assets/graphic-benefits-banking.svg";
-import helpEdu from "../../assets/777.png";
+import helpEdu from "../../assets/help-edu.png";
 import backgroundImage from "../../assets/bg-benefits-apples.jpeg";
 
 const helps = [

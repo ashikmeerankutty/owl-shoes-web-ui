@@ -6,6 +6,7 @@ import { ChevronRightIcon } from "@twilio-paste/icons/esm/ChevronRightIcon";
 import { ContactInfo } from "./ContactInfo";
 import { Alerts } from "./components/Alerts";
 import LogoFull from "../../assets/logo-full.png";
+import ProfileUser from "../../assets/profile-user.jpeg";
 
 const navbarItems = [
     {
@@ -88,7 +89,7 @@ export const Header: FC = () => {
                                 width="184px"
                                 objectFit="cover"
                                 as="img"
-                                src=""
+                                src={ProfileUser}
                             />
                             <Box
                                 paddingY="space30"
