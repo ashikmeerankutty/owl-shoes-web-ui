@@ -10,8 +10,10 @@ import { WhatsNew } from "./WhatsNew";
 import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
 import { Webchat } from "../../components/webchat/Webchat";
+import { usePageTracking } from "../../hooks/usePageTracking";
 
 const WebsiteContent: FC = () => {
+    usePageTracking();
     return (
         <Flex>
             <Box>
