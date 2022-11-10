@@ -1,8 +1,8 @@
+import { useState, Fragment } from "react";
 import { Box } from "@twilio-paste/core/box";
 import { Text } from "@twilio-paste/core/text";
 import { Button } from "@twilio-paste/core/button";
 import { useDispatch } from "react-redux";
-import React, { useState, Fragment } from 'react'
 
 import { sessionDataHandler } from "../sessionDataHandler";
 import { changeEngagementPhase } from "../store/actions/genericActions";
@@ -13,7 +13,7 @@ import { Survey } from "./Survey";
 
 export const ConversationEnded = () => {
     const dispatch = useDispatch();
-    const [surveyShown, setSurveyValue] = useState(false)
+    const [surveyShown, setSurveyValue] = useState(false);
 
     const handleClick = async () => {
         sessionDataHandler.clear();
@@ -28,15 +28,18 @@ export const ConversationEnded = () => {
                 Thanks for chatting with us!
             </Text>
 
-            {surveyShown ? <Text as="p" {...titleStyles}>
-                Thanks for your rating !
-            </Text> : <Fragment>
+            {surveyShown ? (
                 <Text as="p" {...titleStyles}>
-                    Please share your rating !
+                    Thanks for your rating !
                 </Text>
-                <Survey setSurveyValue={setSurveyValue} />
-            </Fragment>}
-
+            ) : (
+                <Fragment>
+                    <Text as="p" {...titleStyles}>
+                        Please share your rating !
+                    </Text>
+                    <Survey setSurveyValue={setSurveyValue} />
+                </Fragment>
+            )}
 
             <Text as="p" {...textStyles}>
                 If you have any more questions, feel free to reach out again.

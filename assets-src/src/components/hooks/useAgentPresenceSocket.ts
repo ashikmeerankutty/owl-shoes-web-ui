@@ -14,7 +14,6 @@ export const useAgentPresenceSocket = () => {
 
     const updateAgentStatus = (data: SyncData, agentConversationSid: string) => {
         if (Array.isArray(data.taskList)) {
-            console.log(data.taskList, conversationSid);
             const currentTask = data.taskList.find(
                 ({ attributes }) => attributes.conversationSid === agentConversationSid
             );

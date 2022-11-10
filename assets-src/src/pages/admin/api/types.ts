@@ -1,3 +1,3 @@
 export interface EmailData {
-    status: string,
+    status: string;
 }

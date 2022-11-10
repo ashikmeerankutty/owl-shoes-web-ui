@@ -54,7 +54,5 @@ export const getNextBookingDates = () => {
         }
     }
 
-    console.log(bookingDates);
-
     return bookingDates;
 };

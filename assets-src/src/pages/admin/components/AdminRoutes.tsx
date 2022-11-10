@@ -1,12 +1,10 @@
 import { Box, Text } from "@twilio-paste/core";
 import { ReactElement } from "react";
-import { Routes, Route, Outlet, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { SendIcon } from "@twilio-paste/icons/esm/SendIcon";
 import { EditIcon } from "@twilio-paste/icons/esm/EditIcon";
 
-import { NotFound } from "../../../components/website/404";
-
-export type SidebarRoute = {
+type SidebarRoute = {
     path: string;
     name: string;
     icon: ReactElement;

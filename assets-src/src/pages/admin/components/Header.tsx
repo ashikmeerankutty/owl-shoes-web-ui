@@ -14,7 +14,9 @@ export const Header = () => (
                 boxShadow="shadowBorderLight"
             >
                 <Box display="flex" alignItems="center" columnGap="space30">
-                    <Text as="h1" className="logo">Owl Shoes</Text>
+                    <Text as="h1" className="logo">
+                        Owl Shoes
+                    </Text>
                     <Text as="p">Admin</Text>
                 </Box>
             </Box>

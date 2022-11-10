@@ -131,11 +131,12 @@ export const sessionDataHandler = {
                 formData: {
                     ...params,
                     agentId,
-                    "skillsNeeded": "TV",
-                    "enquiredDate": "19 - SEP - 2022 10: 25 AM",
-                    "productImageUrl": "https://m.media-amazon.com/images/I/71eUw15rVbL._SX679_.jpg&productName=Asus 108 cm (43 inches) Crystal 4K Series Ultra HD Smart LED TV UA43AUE60AKLXL (Black)",
-                    "productSku": "AS89212",
-                    "timeSpend": "6: 00"
+                    skillsNeeded: "TV",
+                    enquiredDate: "19 - SEP - 2022 10: 25 AM",
+                    productImageUrl:
+                        "https://m.media-amazon.com/images/I/71eUw15rVbL._SX679_.jpg&productName=Asus 108 cm (43 inches) Crystal 4K Series Ultra HD Smart LED TV UA43AUE60AKLXL (Black)",
+                    productSku: "AS89212",
+                    timeSpend: "6: 00"
                 }
             });
         } catch (e) {

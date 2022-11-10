@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import {
     Box,
     Button,
@@ -14,9 +14,6 @@ import { useSelector } from "react-redux";
 import log from "loglevel";
 import { useUID } from "@twilio-paste/core/dist/uid-library";
 
-import { useRoomState } from "../../hooks/useRoomState";
-import { useAppState } from "../../state";
-import { useVideo } from "../VideoProvider/VideoProvider";
 import { AppState } from "../../../../store/definitions";
 import { useWebsite } from "../../../website/WebsiteProvider/WebsiteProvider";
 import { VideoCallStarting } from "../../../VideoCallStarting";

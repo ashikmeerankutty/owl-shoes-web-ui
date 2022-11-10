@@ -1,16 +1,12 @@
 import {
     Box,
     Button,
-    Label,
     Modal,
     ModalBody,
     ModalFooter,
     ModalFooterActions,
     ModalHeader,
-    ModalHeading,
-    Paragraph,
-    Select,
-    Text
+    ModalHeading
 } from "@twilio-paste/core";
 import { useUID } from "@twilio-paste/core/dist/uid-library";
 import { FC } from "react";
@@ -20,7 +16,6 @@ import { RemoteParticipant } from "twilio-video";
 import { AppState } from "../../../../store/definitions";
 import { useWebsite } from "../../../website/WebsiteProvider/WebsiteProvider";
 import { useParticipants } from "../../hooks/useParticipants";
-import { useToggleAudio } from "../../hooks/useToggleAudio";
 import { Participant } from "../Participant/Participant";
 import { useVideo } from "../VideoProvider/VideoProvider";
 
@@ -28,8 +23,6 @@ export const Participants: FC = () => {
     const participants = useParticipants();
     const { room } = useVideo();
     const { userData } = useWebsite();
-
-    const { audioMuted, onToggleAudio } = useToggleAudio();
 
     const { conversation } = useSelector((state: AppState) => ({
         conversation: state.chat.conversation
