@@ -6,7 +6,7 @@ import { store } from "./store/store";
 import { sessionDataHandler } from "./utils/sessionDataHandler";
 import { initConfig } from "./store/actions/initActions";
 import { ConfigState } from "./store/definitions";
-import { PageRouter } from "./Router";
+import { PageRouter } from "./PageRouter";
 import { AnalyticsProvider } from "./common/AnalyticsProvider";
 
 const defaultConfig: ConfigState = {
